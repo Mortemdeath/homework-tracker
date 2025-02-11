@@ -1,90 +1,221 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Homework Tracker</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+        }
+        .logo-container img {
+            height: 50px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        main {
+            padding: 20px;
+            flex: 1;
+        }
+        form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input, button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: #333;
+            color: white;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #333;
+            color: white;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-  <h1>Homework Tracker</h1>
-  <div id="tasks">
-    <h2>My Tasks</h2>
-    <ul>
-      <li>
-        <input type="checkbox" id="task1">
-        <label for="task1">Math homework</label>
-      </li>
-      <li>
-        <input type="checkbox" id="task2">
-        <label for="task2">Read chapter 5</label>
-      </li>
-      <li>
-        <input type="checkbox" id="task3">
-        <label for="task3">Science project</label>
-      </li>
-    </ul>
-  </div>
-  <div id="calendar">
-    <h2>Calendar</h2>
-    <table id="calendar-table">
-      <thead>
-        <tr>
-          <th>Sunday</th>
-          <th>Monday</th>
-          <th>Tuesday</th>
-          <th>Wednesday</th>
-          <th>Thursday</th>
-          <th>Friday</th>
-          <th>Saturday</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
-          <td>4</td>
-          <td>5</td>
-          <td>6</td>
-          <td>7</td>
-        </tr>
-        <tr>
-          <td>8</td>
-          <td>9</td>
-          <td>10</td>
-          <td>11</td>
-          <td>12</td>
-          <td>13</td>
-          <td>14</td>
-        </tr>
-        <tr>
-          <td>15</td>
-          <td>16</td>
-          <td>17</td>
-          <td>18</td>
-          <td>19</td>
-          <td>20</td>
-          <td>21</td>
-        </tr>
-        <tr>
-          <td>22</td>
-          <td>23</td>
-          <td>24</td>
-          <td>25</td>
-          <td>26</td>
-          <td>27</td>
-          <td>28</td>
-        </tr>
-        <tr>
-          <td>29</td>
-          <td>30</td>
-          <td>31</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo" class="logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" >Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h1>Homework Tracker</h1>
+            <form id="homework-form">
+                <input type="text" id="subject" placeholder="Subject" required>
+                <input type="text" id="assignment" placeholder="Assignment" required>
+                <input type="date" id="due-date" required>
+                <button type="submit">Add Homework</button>
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Assignment</th>
+                        <th>Due Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="homework-list">
+                    <!-- Homework entries will appear here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <button data-sound="anime-ahh"></button>
+    <button data-sound="cow-moo"></button>
+    <button data-sound="lego-breaking"></button>
+    <button data-sound="rizz-sound-effect"></button>
+    <button data-sound="samsung-spaceline-notification"></button>
+    <audio id="audio"></audio>
+    <footer>
+        <p>&copy; 2025 Homework Tracker. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const homeworkList = document.getElementById('homework-list');
+        const homeworkForm = document.getElementById('homework-form');
+
+        const exampleAssignments = [
+            {
+                subject: 'Math',
+                assignment: 'Complete the worksheet on fractions',
+                dueDate: '2023-10-27'
+            },
+            {
+                subject: 'Science',
+                assignment: 'Read the chapter on the solar system and answer the questions at the end',
+                dueDate: '2023-10-28'
+            },
+            {
+                subject: 'English',
+                assignment: 'Write a short story about a time you overcame a challenge',
+                dueDate: '2023-10-29'
+            },
+            {
+                subject: 'History',
+                assignment: 'Study for the test on the American Revolution',
+                dueDate: '2023-10-30'
+            },
+            {
+                subject: 'Spanish',
+                assignment: 'Practice the vocabulary for the unit on food',
+                dueDate: '2023-10-31'
+            }
+        ];
+
+        exampleAssignments.forEach(assignment => {
+            addHomeworkToTable(assignment);
+        });
+
+        homeworkForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const subject = document.getElementById('subject').value;
+            const assignment = document.getElementById('assignment').value;
+            const dueDate = document.getElementById('due-date').value;
+
+            const newAssignment = {
+                subject: subject,
+                assignment: assignment,
+                dueDate: dueDate
+            };
+
+            addHomeworkToTable(newAssignment);
+
+            // Clear the form
+            homeworkForm.reset();
+        });
+
+        function addHomeworkToTable(assignment) {
+            const row = homeworkList.insertRow();
+
+            const subjectCell = row.insertCell();
+            subjectCell.textContent = assignment.subject;
+
+            const assignmentCell = row.insertCell();
+            assignmentCell.textContent = assignment.assignment;
+
+            const dueDateCell = row.insertCell();
+            dueDateCell.textContent = assignment.dueDate;
+
+            const actionCell = row.insertCell();
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.addEventListener('click', () => {
+                homeworkList.deleteRow(row.rowIndex);
+            });
+            actionCell.appendChild(deleteButton);
+        }
+
+        const buttons = document.querySelectorAll('button');
+        const audio = document.getElementById('audio');
+
+        buttons.forEach(button => {
+            if (button.dataset.sound) {
+                button.addEventListener('click', () => {
+                    const sound = button.dataset.sound;
+                    audio.src = `${sound}.mp3`;
+                    audio.play();
+                });
+            }
+        });
+    </script>
 </body>
 </html>
