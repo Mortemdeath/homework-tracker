@@ -103,9 +103,27 @@
             </tr>
         </tbody>
     </table>
+    <button id="samsungButton">create</button>
 
-    <button>Edit</button>
-    <button>Delete</button>
+    <button id="cowButton">Edit</button>
+    <button id="rizzButton">Delete</button>
+    <audio id="cowSound" src="cow-moo.mp3"></audio>
+    <audio id="rizzSound" src="rizz-sound-effect.mp3"></audio>
+    <audio id="samsungSound" src="samsung-spaceline-notification.mp3"></audio>
+
+<script>
+    document.getElementById('cowButton').addEventListener('click', function() {
+        document.getElementById('cowSound').play();
+    });
+
+    document.getElementById('rizzButton').addEventListener('click', function() {
+        document.getElementById('rizzSound').play();
+    });
+
+    document.getElementById('samsungButton').addEventListener('click', function() {
+        document.getElementById('samsungSound').play();
+    });
+</script>
 
 </body>
 </html>
